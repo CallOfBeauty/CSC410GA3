@@ -1,5 +1,7 @@
 #include "genome.h"
 #include <iostream>
+#include <cmath>
+
 using namespace std; 
 
 
@@ -23,14 +25,21 @@ myGenome.print();
 
 //**************************GA2*******************************88
 
-genome test_genome;
  
-test_genome.set_mRate(2);
-test_genome.get_mRate();
-cout << endl;
+genome::Pixel* mypixel = new genome::Pixel[3];
+
+mypixel[0].red = 212;
+mypixel[0].green = 31;
+mypixel[0].blue = 0;
+mypixel[1].red = 0;
+mypixel[1].green = 0;
+mypixel[1].blue = 22;
+double gen = myGenome.calculate_overall_fitness(mypixel, 2);
+
+cout<<gen<<endl;
   
 return 0;
-};
+}
 
 
 
