@@ -11,7 +11,7 @@ public:
 
     population();
     ~population();
-    void generate_population(int popSize, int nGenes);
+    void gen_pop(int popSize, int nGenes);
     void set_target(Pixel* target, int imageSize);
     void select_parents();
     void set_nCrossover(int nCrossover);

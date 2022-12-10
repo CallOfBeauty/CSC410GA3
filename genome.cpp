@@ -141,12 +141,14 @@ double genome::calculate_overall_fitness(Pixel* target, int nPixels){ //takes th
 };
     
     
-void genome::set_pixel(int index, Pixel newPixel)//This function takes the newPixel and sets the Pixel at position of the index equal to it. It also makes sure that the index and the red green and ble values are valid.
-    if (index >= 0 && index < nGenes) { 
-        if (newPixel.red >= 0 && newPixel.red <= 255 && newPixel.green >= 0 && newPixel.green <= 255 && newPixel.blue >= 0 && newPixel.blue <= 255) {
-            genes[index] = newPixel;
-        }
-    }
+void genome::set_pixel(int index, Pixel newPixel){//This function takes the newPixel and sets the Pixel at position of the index equal to it. It also makes sure that the index and the red green and ble values are valid.
+    if (index>=0 && index<this->nGenes){
+    if (0 <= newPixel.red && newPixel.red < 256){
+            this->genes[index].red = newPixel.red;};
+    if (0 <= newPixel.green && newPixel.green < 256){
+            this->genes[index].green = newPixel.green;};
+    if (0 <= newPixel.blue && newPixel.blue < 256){
+            this->genes[index].blue = newPixel.blue;};}
 };    
     
 
