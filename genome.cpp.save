@@ -1,0 +1,60 @@
+class genome {
+public:
+    genome(); // constructor
+    ~genome(); // destructor
+    
+    
+    void allocate( int nGenes, Pixel* genes ); //this line will allocate an array of 4 pixels in my Genome and all the RGD values will be zeroed
+    {
+    if (genes!=NULL){
+    deallocate(Pixel* genes);
+    }
+    Pixel* genes = new genes[nGenes];
+    }
+    
+    
+    
+    
+    void deallocate(int nGenes, Pixel* genes){
+    nGenes=0;
+    if (genes==NULL){
+    return ;}
+    Pixel* genes = new genes[0];
+    }
+
+    
+    
+    void randomize(int nGenes, Pixel* genes){
+    for (int i=0, i<sizeof(genes); ++i){
+    for (int k=0, k<3;++k){
+    int random = rand()% 256;
+    genes[i][k]=random;
+    }}
+    
+    
+    
+    
+    
+    
+    
+    void set_red( int index, int value);  // you can add the other two
+    
+    void set_greeb( int index, int value); 
+    
+    void set_blue( int index, int value); 
+    
+    int get_red( int index);  // you can add the other two
+    
+    int get_green( int index);
+    
+    int get_blue( int index);
+    
+    void print();
+
+private:
+    Pixel* genes;
+    int nGenes;
+};
+
+Î
+xxx
