@@ -1,4 +1,4 @@
-#include "genome.h"
+       #include "genome.h"
 #include <cstdlib>
 #include <iostream>
 #include <ctime>
