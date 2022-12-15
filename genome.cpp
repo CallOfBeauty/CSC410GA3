@@ -1,4 +1,4 @@
-       #include "genome.h"
+#include "genome.h"
 #include <cstdlib>
 #include <iostream>
 #include <ctime>
@@ -10,6 +10,7 @@ using namespace std;
 genome::genome() { //This function initialized genes to Null and sets nGenes to 0 (constructor)
         genes = NULL;
         nGenes = 0;
+        mRate = 0;//initializing the mutation rate at 0
         };
 
 genome::~genome(){//This function deletes the space we assigned to genes (destructor)
@@ -111,44 +112,78 @@ void genome::mutate(){ //this function traverses through the entire genes array 
     };
     
     
-double genome::calculate_gene_fitness(int index, Pixel targetPixel){ //this function calculated the average difference between the target and the pixel values and return the percentage of the average difference
-    double reddif;
-    double greendif;
-    double bluedif;
-    double average_sum;
-    
-    reddif= targetPixel.red - this->genes[index].red;
-    greendif= targetPixel.green - this->genes[index].green;
-    bluedif= targetPixel.blue - this->genes[index].red;
-    
-    
-    average_sum=(abs(reddif)+abd(greendif)+abd(bluedif))/3;
-    average_sum=(average_sum/255.0)*100;
+double genome::calculate_gene_fitness(int index, Pixel targetPixel) {
+  // Calculate the average percent difference of the RGB values between 
+  // targetPixel and genes[index].
 
-    return average_sum;
-    };
+  double red_d = targetPixel.red - this->genes[index].red;
+  double green_d = targetPixel.green - this->genes[index].green;
+  double blue_d = targetPixel.blue - this->genes[index].blue;
+
+  // Calculate the sum of the absolute differences in the RGB values.
+  double avg = 0;
+  avg += abs(red_d) + abs(green_d) + abs(blue_d);
+
+  // Calculate the average sum.
+  double av_diff = (avg / 3)/255.0;
+
+  // Calculate the percent average difference.
+  double diff = av_diff* 100;
+  return diff;
+}
     
 
-double genome::calculate_overall_fitness(Pixel* target, int nPixels){ //takes the genome sequence that should be produced, and compares it with what was actually produced. It calculates the difference on each pixel and finds the average difference between the target and the actual sequence.
-    if (nPixels == this->nGenes){
-        double sum = 0;
-        for(int i = 0; i < nPixels; i ++){
-            double dif = calculate_gene_fitness(i, target[i]);
-            sum += dif;}
-        double fitness = sum/nPixels;
-        return fitness;}
-        else{return 0;};
-};
+
+double genome::calculate_overall_fitness(Pixel* target, int nPixels) {
+  // Calculate the overall fitness. If nPixels is not equal to nGenes, 
+  // return 0.
+  if (nPixels == nGenes) {
+    double sum_diff = 0;
+    for (int i = 0; i < nPixels; i++) {
+      // Calculate the fitness of the gene at index i.
+      double diff = calculate_gene_fitness(i, target[i]);
+      sum_diff += diff;
+    }
+
+    // Calculate the average fitness.
+    double overall_fitness = sum_diff / nPixels;
+    return overall_fitness;
+  } else {
+    return 0;
+  }
+}
     
     
-void genome::set_pixel(int index, Pixel newPixel){//This function takes the newPixel and sets the Pixel at position of the index equal to it. It also makes sure that the index and the red green and ble values are valid.
-    if (index>=0 && index<this->nGenes){
-    if (0 <= newPixel.red && newPixel.red < 256){
-            this->genes[index].red = newPixel.red;};
-    if (0 <= newPixel.green && newPixel.green < 256){
-            this->genes[index].green = newPixel.green;};
-    if (0 <= newPixel.blue && newPixel.blue < 256){
-            this->genes[index].blue = newPixel.blue;};}
-};    
+void genome::set_pixel(int index, Pixel newPixel) {
+  // Check if the index is valid (between 0 and the number of genes - 1).
+  if (index >= 0 && index <= nGenes - 1) {
+    // Check that the red, green, and blue values of the newPixel are valid.
+    if (newPixel.red >= 0 && newPixel.red <= 255) {
+      // Set the red value of the gene at position index to the red value of the newPixel.
+      this->genes[index].red = newPixel.red;
+    }
+    if (newPixel.green >= 0 && newPixel.green <= 255) {
+      // Set the green value of the gene at position index to the green value of the newPixel.
+      this->genes[index].green = newPixel.green;
+    }
+    if (newPixel.blue >= 0 && newPixel.blue <= 255) {
+      // Set the blue value of the gene at position index to the blue value of the newPixel.
+      this->genes[index].blue = newPixel.blue;
+    }
+  }
+}
+//tests*********************************
+
+void genome::test_set_mRate(double testing, double real) {
+  // Compare the testing_value to the expected_value.
+  if (testing == real) {
+    cout << "psdd" << endl;
+  } else {
+    cout << "fail" << endl;
+  }
+}
+
+
+
     
 

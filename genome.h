@@ -1,13 +1,13 @@
 using namespace std; 
 
-struct Pixel {
+struct Pixel {//in order to have all the colors in one place 
 int red;
 int blue;
 int green;
 };
 
 class genome {
-private:
+private://initializing the number of genes and the mutation rate, from the gene class
   Pixel* genes; 
   int nGenes;
   double mRate; 
@@ -35,5 +35,4 @@ public:
   double calculate_overall_fitness(Pixel* target, int nPixels);
   void set_pixel(int index, Pixel newPixel);    
   
-
 };
